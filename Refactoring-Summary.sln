@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactoringPractice", "examples\csharp-practice\RefactoringPractice.csproj", "{60C4F6BB-A89C-90FC-958C-8A3945A1B796}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{60C4F6BB-A89C-90FC-958C-8A3945A1B796}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C4F6BB-A89C-90FC-958C-8A3945A1B796}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C4F6BB-A89C-90FC-958C-8A3945A1B796}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C4F6BB-A89C-90FC-958C-8A3945A1B796}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{60C4F6BB-A89C-90FC-958C-8A3945A1B796} = {B36A84DF-456D-A817-6EDD-3EC3E7F6E11F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2063F516-F008-4932-9137-69507921FCD9}
+	EndGlobalSection
+EndGlobal
