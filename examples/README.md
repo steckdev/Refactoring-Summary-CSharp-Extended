@@ -5,6 +5,7 @@ This directory contains practical C# examples for learning and practicing refact
 ## Directory Structure
 
 ### 📁 csharp-practice/
+
 **Hands-on practice project** - A complete C# console application with before/after refactoring examples.
 
 - **Purpose**: Learn refactoring by modifying real, runnable code
@@ -13,6 +14,7 @@ This directory contains practical C# examples for learning and practicing refact
 - **Commands**: `dotnet run` to see examples, `cd ../csharp-tests && dotnet test` to verify
 
 ### 📁 csharp-tests/
+
 **Unit tests** for the practice project to ensure refactorings don't break functionality.
 
 - **Purpose**: Demonstrate test-driven refactoring
@@ -20,6 +22,7 @@ This directory contains practical C# examples for learning and practicing refact
 - **How to use**: Run `dotnet test` to verify your changes work correctly
 
 ### 📁 verification/
+
 **Compilation verification** - Ensures key catalog examples compile correctly.
 
 - **Purpose**: Quality assurance for the documentation
@@ -29,12 +32,14 @@ This directory contains practical C# examples for learning and practicing refact
 ## Quick Start
 
 1. **Start practicing**:
+
    ```bash
    cd csharp-practice
    dotnet run
    ```
 
 2. **Run tests**:
+
    ```bash
    cd csharp-tests
    dotnet test
@@ -50,7 +55,7 @@ This directory contains practical C# examples for learning and practicing refact
 
 1. **Begin here**: [csharp-practice/README.md](csharp-practice/README.md) - Detailed practice guide
 2. **Reference**: [../docs/Refactoring-Catalog.md](../docs/Refactoring-Catalog.md) - Complete catalog
-3. **Book-style**: [../readme.md](../readme.md) - Structured walkthrough
+3. **Book-style**: [../README.md](../README.md) - Structured walkthrough
 
 ## Requirements
 

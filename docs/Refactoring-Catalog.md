@@ -4,7 +4,7 @@
 
 This repository is a hands‑on companion to Martin Fowler’s Refactoring, adapted with modern C# examples. Use it to learn, teach, and quickly apply refactorings to real code.
 This comprehensive catalog contains 74 refactoring techniques from Martin Fowler's book, adapted with modern C# examples.
-**Navigation**: Return to [main guide](../readme.md) | Jump to [Table of Contents](#1-table-of-content)
+**Navigation**: Return to [main guide](../README.md) | Jump to [Table of Contents](#1-table-of-content)
 
 ## Quick Reference - Most Used
 
