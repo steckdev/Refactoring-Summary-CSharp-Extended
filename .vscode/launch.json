@@ -1,0 +1,61 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Practice Examples",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-practice",
+            "program": "${workspaceFolder}/examples/csharp-practice/bin/Debug/net8.0/RefactoringPractice.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/csharp-practice",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Run Tests (Watch Mode)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test-watch",
+            "program": "${workspaceFolder}/examples/csharp-tests/bin/Debug/net8.0/RefactoringTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/csharp-tests",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Run All Tests",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "test-all",
+            "program": "${workspaceFolder}/examples/csharp-tests/bin/Debug/net8.0/RefactoringTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/csharp-tests",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Verify Compilation",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-verification",
+            "program": "${workspaceFolder}/examples/verification/bin/Debug/net8.0/CompilationTest.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/verification",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        },
+        {
+            "name": "Auto-Test Development",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "auto-test-setup",
+            "program": "${workspaceFolder}/examples/csharp-tests/bin/Debug/net8.0/RefactoringTests.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/examples/csharp-tests",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            "postDebugTask": "test-continuous"
+        }
+    ]
+}

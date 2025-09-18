@@ -53,9 +53,8 @@ This directory contains practical C# examples for learning and practicing refact
 
 ## Learning Path
 
-1. **Begin here**: [csharp-practice/README.md](csharp-practice/README.md) - Detailed practice guide
-2. **Reference**: [../docs/Refactoring-Catalog.md](../docs/Refactoring-Catalog.md) - Complete catalog
-3. **Book-style**: [../README.md](../README.md) - Structured walkthrough
+1. **Start with Reference**: [../docs/Refactoring-Catalog.md](../docs/Refactoring-Catalog.md) - Complete catalog
+2. **Practice here**: [csharp-practice/README.md](csharp-practice/README.md) - Detailed practice guide
 
 ## Requirements
 
