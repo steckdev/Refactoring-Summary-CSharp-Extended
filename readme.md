@@ -6,9 +6,10 @@ This repository is a hands‑on companion to Martin Fowler's Refactoring, adapte
 
 ## Quick Navigation
 
-- **Complete Catalog**: [docs/Refactoring-Catalog.md](docs/Refactoring-Catalog.md) - Full reference with all 71 refactoring techniques
+- **Complete Catalog**: [docs/Refactoring-Catalog.md](docs/Refactoring-Catalog.md) - Full reference with all 74 refactoring techniques
 - **Bad Smells**: [docs/Refactoring-Catalog.md#3-bad-smells-in-code](docs/Refactoring-Catalog.md#3-bad-smells-in-code) - Spot issues in code fast
 - **Most-used refactorings**: Extract Method, Replace Temp with Query, Guard Clauses, Polymorphism
+- **New in 2nd edition**: Split Phase, Replace Loop with Pipeline, Slide Statements
 
 ## How to Use This Guide
 
@@ -204,8 +205,13 @@ Behavior‑preserving code transformations that improve design, readability, or 
 
 ### Refactoring and Performance
 
-- First make it correct and clear; then measure
-- Hot paths: refactor to expose clear seams before optimizing
+- **Three approaches to performance**:
+  1. **Time budgeting**: allocate time resources to components (hard to predict)
+  2. **Constant attention**: optimize continuously (often counterproductive)
+  3. **Performance-aware programming**: write tunable code, then optimize (recommended)
+- **Refactoring enables performance**: well-factored code is easier to profile and tune
+- **90% rule**: most programs spend 90% of time in 10% of code
+- Profile first, optimize the bottlenecks, measure results
 
 ### Where Did Refactoring Come From?
 
@@ -218,6 +224,16 @@ Use IDE operations for behavior‑preserving steps:
 
 - Rename symbol, Extract Method, Inline Method, Move Type/Member
 - Change Signature, Introduce Variable/Field/Property
+
+### Modern C# and Functional Approaches
+
+The 2nd edition emphasizes less class-centric design. C# supports this with:
+
+- **Records**: Immutable data containers with value semantics
+- **Pattern matching**: Cleaner conditional logic
+- **Local functions**: Nested functions for better encapsulation
+- **Expression-bodied members**: Concise function definitions
+- **LINQ**: Functional data transformations replacing imperative loops
 
 ### Going Further
 
@@ -365,6 +381,38 @@ public void Withdraw_OverBalance_Throws() {
 ## Chapter 5: Introducing the Catalog
 
 Format: intent, motivation, mechanics, and small C# examples. This guide links book naming to classic catalog entries in the repo.
+
+### Refactoring Record Format
+
+Each refactoring follows this structure:
+
+- **Name**: Clear, intention-revealing name
+- **Sketch**: Visual before/after code comparison
+- **Motivation**: When and why to apply this refactoring
+- **Mechanics**: Step-by-step instructions
+- **Example**: Detailed walkthrough with C# code
+
+### Building a Vocabulary
+
+Teams benefit from shared refactoring vocabulary. Instead of "clean up this method," say "extract method" or "replace temp with query."
+
+### The Role of Tests
+
+Tests are essential safety net. Red-green-refactor cycle:
+
+1. **Red**: Write failing test
+2. **Green**: Make it pass (quick and dirty)
+3. **Refactor**: Clean up while keeping tests green
+
+### What's New in the 2nd Edition
+
+Key additions and changes from Fowler's 2nd edition:
+
+- **Less class-centric**: Emphasizes functions and composition over inheritance
+- **Modern language features**: Uses C# records, LINQ, nullable reference types
+- **New refactorings**: Split Phase, Replace Loop with Pipeline, Slide Statements
+- **Updated examples**: All examples rewritten for clarity and modern practices
+- **Functional approach**: More emphasis on immutable data and pure functions
 
 ---
 

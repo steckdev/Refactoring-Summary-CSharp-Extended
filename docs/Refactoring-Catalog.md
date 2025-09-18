@@ -3,6 +3,7 @@
 [![Language](https://img.shields.io/badge/language-C%23-178600)](#) [![Focus](https://img.shields.io/badge/focus-refactoring-blue)](#) [![Docs](https://img.shields.io/badge/docs-book_style-green)](#)
 
 This repository is a hands‑on companion to Martin Fowler’s Refactoring, adapted with modern C# examples. Use it to learn, teach, and quickly apply refactorings to real code.
+This comprehensive catalog contains 74 refactoring techniques from Martin Fowler's book, adapted with modern C# examples.
 **Navigation**: Return to [main guide](../readme.md) | Jump to [Table of Contents](#1-table-of-content)
 
 ## Quick Reference - Most Used
@@ -136,6 +137,9 @@ Contributions welcome — issues and PRs help make this better.
   - [69. Convert Procedural Design to Objects](#69-convert-procedural-design-to-objects)
   - [70. Separate Domain from Presentation](#70-separate-domain-from-presentation)
   - [71. Extract Hierarchy](#71-extract-hierarchy)
+  - [72. Split Phase](#72-split-phase)
+  - [73. Replace Loop with Pipeline](#73-replace-loop-with-pipeline)
+  - [74. Slide Statements](#74-slide-statements)
 
 <!-- /TOC -->
 
@@ -1761,10 +1765,12 @@ to
 - Avoid writing an explicit conditional when you have objects whose behavior varies depending on their types.
 - Switch statements should be less common in object oriented programs
 
-## 39. Introduce Null Object
+## 39. Introduce Null Object (Introduce Special Case)
 
 You have repeated checks for a null value.
 _Replace the null value with a null object_
+
+**Note**: In Fowler's 2nd edition, this is called "Introduce Special Case" and covers null objects as a specific case of the Special Case pattern.
 
 ```java
 
@@ -2718,3 +2724,125 @@ to
 
 - A class as implementing one idea become implementing two or three or ten.
 - Keep the Single Responsibility Principle.
+
+---
+
+## 72. Split Phase
+
+You have code that's dealing with two different things. Divide it into separate modules.
+
+```csharp
+// Before: mixed calculation and formatting
+string OrderSummary(Order order) {
+    var total = 0m;
+    var formatted = "Order Summary:\n";
+    foreach (var line in order.Lines) {
+        var amount = line.Quantity * line.UnitPrice;
+        total += amount;
+        formatted += $"  {line.Product}: {amount:C}\n";
+    }
+    formatted += $"Total: {total:C}";
+    return formatted;
+}
+```
+
+to
+
+```csharp
+// After: separated phases
+record OrderData(decimal Total, IReadOnlyList<LineData> Lines);
+record LineData(string Product, decimal Amount);
+
+string OrderSummary(Order order) {
+    var orderData = CalculateOrderData(order);
+    return FormatOrder(orderData);
+}
+
+OrderData CalculateOrderData(Order order) {
+    var total = 0m;
+    var lines = new List<LineData>();
+    foreach (var line in order.Lines) {
+        var amount = line.Quantity * line.UnitPrice;
+        total += amount;
+        lines.Add(new LineData(line.Product, amount));
+    }
+    return new OrderData(total, lines);
+}
+
+string FormatOrder(OrderData data) {
+    var result = "Order Summary:\n";
+    foreach (var line in data.Lines) {
+        result += $"  {line.Product}: {line.Amount:C}\n";
+    }
+    result += $"Total: {data.Total:C}";
+    return result;
+}
+```
+
+**Motivation**
+
+- When you have code that's dealing with two different things, it's better to divide it into separate modules
+- Makes each piece easier to understand and modify independently
+- Enables reuse of calculation logic with different presentation formats
+
+## 73. Replace Loop with Pipeline
+
+Replace a loop with a pipeline of operations using LINQ.
+
+```csharp
+// Before: imperative loop
+var result = new List<string>();
+foreach (var person in people) {
+    if (person.Age >= 18) {
+        result.Add(person.Name.ToUpper());
+    }
+}
+```
+
+to
+
+```csharp
+// After: functional pipeline
+var result = people
+    .Where(p => p.Age >= 18)
+    .Select(p => p.Name.ToUpper())
+    .ToList();
+```
+
+**Motivation**
+
+- Pipelines express the logic more clearly than loops
+- Each operation in the pipeline has a single responsibility
+- Easier to understand the transformation being applied
+- More composable and testable
+
+## 74. Slide Statements
+
+Move related statements together.
+
+```csharp
+// Before: scattered related statements
+var user = GetUser(id);
+var logger = new Logger();
+var permissions = GetPermissions(user);
+logger.Log($"Checking permissions for {user.Name}");
+var isAuthorized = permissions.Contains("admin");
+```
+
+to
+
+```csharp
+// After: grouped related statements
+var user = GetUser(id);
+var permissions = GetPermissions(user);
+var isAuthorized = permissions.Contains("admin");
+
+var logger = new Logger();
+logger.Log($"Checking permissions for {user.Name}");
+```
+
+**Motivation**
+
+- Code is easier to understand when related statements are together
+- Makes it easier to extract methods from grouped statements
+- Reduces cognitive load when reading code
