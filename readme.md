@@ -1,8 +1,26 @@
-This is my summary of the "Refactoring: Improving the Design of Existing Code" by Martin Fowler. I use it while learning and as quick reference. It is not intended to be an standalone substitution of the book so if you really want to learn the concepts here presented, buy and read the book and use this repository as a reference and guide.
+# Refactoring in C#: Practical Guide and Catalog
 
-If you are the publisher and think this repository should not be public, just write me an email at hugomatilla [at] gmail [dot] com and I will make it private.
+[![Language](https://img.shields.io/badge/language-C%23-178600)](#) [![Focus](https://img.shields.io/badge/focus-refactoring-blue)](#) [![Docs](https://img.shields.io/badge/docs-book_style-green)](#)
 
-Contributions: Issues, comments and pull requests are super welcome :smiley:
+This repository is a hands‑on companion to Martin Fowler’s Refactoring, adapted with modern C# examples. Use it to learn, teach, and quickly apply refactorings to real code.
+
+- Quick Walkthrough (book‑style): see docs/Refactoring-CSharp-Guide.md
+- Full Catalog: jump to the Table of Contents below
+- Bad Smells: start spotting issues in code fast
+
+How to use
+
+- Pick a smell → choose a refactoring → apply the smallest step → run tests
+- Prefer clear names, small methods, no magic numbers, SOLID
+- Copy/paste examples as templates and adapt to your domain
+
+Attribution & Rights
+
+- This is a learning aid. Read the book to master the material.
+- Source material: Refactoring by Martin Fowler (Addison‑Wesley)
+- Publisher note: if you believe this repo should not be public, contact me through github issue and it will be made private.
+
+Contributions welcome — issues and PRs help make this better.
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
@@ -113,6 +131,32 @@ Contributions: Issues, comments and pull requests are super welcome :smiley:
   - [71. Extract Hierarchy](#71-extract-hierarchy)
 
 <!-- /TOC -->
+
+> Quick Navigation
+>
+> - Book‑style walkthrough: docs/Refactoring-CSharp-Guide.md
+> - Smells overview: [3. BAD SMELLS IN CODE](#3-bad-smells-in-code)
+> - First set of refactorings: [6. COMPOSING METHODS](#6-composing-methods)
+> - Encapsulation patterns: [8. ORGANIZING DATA](#8-organizing-data)
+> - Conditional logic: [9. SIMPLIFYING CONDITIONAL EXPRESSIONS](#9-simplifying-conditional-expressions)
+> - API refactorings: [10. MAKING METHOD CALLS SIMPLER](#10-making-method-calls-simpler)
+> - Inheritance tools: [11. DEALING WITH GENERALIZATION](#11-dealing-with-generalization)
+>
+> Most‑used C# refactorings
+>
+> - Extract Method, Replace Temp with Query, Introduce Parameter Object
+> - Encapsulate Field/Collection, Replace Magic Number with Constant
+> - Guard Clauses, Replace Conditional with Polymorphism, Null Object
+> - Replace Error Code with Exception, Replace Exception with Test
+
+Preview example (Extract Method)
+
+```csharp
+void PrintOwing(double amount) {
+	PrintBanner();
+	PrintDetails(amount);
+}
+```
 
 # 3. BAD SMELLS IN CODE
 
@@ -937,7 +981,7 @@ to
 	int High { get { return _high; } }
 ```
 
-**Motivation**  
+**Motivation**
 Allows a subclass to override how to get that information with a method and that it supports more flexibility in managing the data, such as lazy initialization.
 
 ## 19. Replace Data Value with Object
@@ -972,7 +1016,7 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 Simple data items aren't so simple anymore.
 
 ## 20. Change Value to Reference
@@ -1014,7 +1058,7 @@ to
 		}
 ```
 
-**Motivation**  
+**Motivation**
 Reference objects are things like customer or account. Each object stands for one object in the real world, and you use the object identity to test whether they are equal.
 
 ## 21. Change Reference to Value
@@ -1049,7 +1093,7 @@ to
 	new Currency("USD").Equals(new Currency("USD")) // now returns true
 ```
 
-**Motivation**  
+**Motivation**
 Working with the reference object becomes awkward. The reference object is immutable and small. Used in distributed or concurrent systems.
 
 ## 22. Replace Array with Object
@@ -1073,19 +1117,19 @@ to
 	row.Wins = "15";
 ```
 
-**Motivation**  
+**Motivation**
 Arrays should be used only to contain a collection of similar objects in some order.
 
 ## 23. Duplicate Observed Data
 
-You have domain data available only in a GUI control, and domain methods need access.  
-_Copy the data to a domain object. Set up an observer to synchronize the two pieces of data_  
-**Motivation**  
- To separate code that handles the user interface from code that handles the business logic.
+You have domain data available only in a GUI control, and domain methods need access.
+_Copy the data to a domain object. Set up an observer to synchronize the two pieces of data_
+**Motivation**
+To separate code that handles the user interface from code that handles the business logic.
 
 ## 24. Change Unidirectional Association to Bidirectional
 
-You have two classes that need to use each other's features, but there is only a one-way link.  
+You have two classes that need to use each other's features, but there is only a one-way link.
 _Add back pointers, and change modifiers to update both sets_
 
 ```csharp
@@ -1149,14 +1193,14 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 When the object referenced needs access access to the object that refer to it.
 
 ## 25. Change Bidirectional Association to Unidirectional
 
-You have a two-way association but one class no longer needs features from the other.  
-_Drop the unneeded end of the association_  
-**Motivation**  
+You have a two-way association but one class no longer needs features from the other.
+_Drop the unneeded end of the association_
+**Motivation**
 If Bidirectional association is not needed, reduce complexity, handle zombie objects, eliminate interdependency
 
 ## 26. Replace Magic Number with Symbolic Constant
@@ -1181,7 +1225,7 @@ to
 	const double GRAVITATIONAL_CONSTANT = 9.81;
 ```
 
-**Motivation**  
+**Motivation**
 Avoid using Magic numbers.
 
 ## 27. Encapsulate Field
@@ -1202,7 +1246,7 @@ to
 	public string Name { get { return _name; } set { _name = value; } }
 ```
 
-**Motivation**  
+**Motivation**
 You should never make your data public.
 
 ## 28. Encapsulate Collection
@@ -1244,7 +1288,7 @@ to
 
 ## 29. Remove Record with data class
 
-You need to interface with a record structure in a traditional programming environment.  
+You need to interface with a record structure in a traditional programming environment.
 _Make a dumb data object for the record._
 
 **Motivation**
@@ -1284,12 +1328,12 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 Statically type checking.
 
 ## 31. Replace Type Code with Subclasses
 
-You have an immutable type code that affects the behavior of a class.  
+You have an immutable type code that affects the behavior of a class.
 _Replace the type code with subclasses._
 
 ```java
@@ -1335,7 +1379,7 @@ to
 
 ## 32. Replace Type Code with State/Strategy
 
-You have a type code that affects the behavior of a class, but you cannot use subclassing.  
+You have a type code that affects the behavior of a class, but you cannot use subclassing.
 _Replace the type code with a state object_
 
 ```java
@@ -1414,7 +1458,7 @@ to
 
 ## 32. Replace Subclass with Fields
 
-You have subclasses that vary only in methods that return constant data.  
+You have subclasses that vary only in methods that return constant data.
 _Change the methods to superclass fields and eliminate the subclasses_
 
 ```java
@@ -1557,7 +1601,7 @@ to
 
 ```
 
-**Motivation**  
+**Motivation**
 Makes clearer what varies and what stays the same.
 
 ## 36. Remove Control Flag
@@ -1609,7 +1653,7 @@ to
 
 ## 37. Replace Nested Conditional with Guard Clauses
 
-A method has conditional behavior that does not make clear the normal path of execution.  
+A method has conditional behavior that does not make clear the normal path of execution.
 _Use guard clauses for all the special cases_
 
 ```java
@@ -1650,7 +1694,7 @@ to
 
 ## 38. Replace Conditional with Polymorphism
 
-You have a conditional that chooses different behavior depending on the type of an object.  
+You have a conditional that chooses different behavior depending on the type of an object.
 _Move each leg of the conditional to an overriding method in a subclass. Make the original method abstract_
 
 ```java
@@ -1712,7 +1756,7 @@ to
 
 ## 39. Introduce Null Object
 
-You have repeated checks for a null value.  
+You have repeated checks for a null value.
 _Replace the null value with a null object_
 
 ```java
@@ -1737,7 +1781,7 @@ to
 
 ## 40. Introduce Assertion
 
-A section of code assumes something about the state of the program.  
+A section of code assumes something about the state of the program.
 _Make the assumption explicit with an assertion_
 
 ```java
@@ -1823,12 +1867,12 @@ to
 	getContact()
 ```
 
-**Motivation**  
+**Motivation**
 A parameter is no more needed.
 
 ## 44. Separate Query from Modifier
 
-You have a method that returns a value but also changes the state of an object.  
+You have a method that returns a value but also changes the state of an object.
 _Create two methods, one for the query and one for the modification_
 
 ```java
@@ -1842,12 +1886,12 @@ to
 	SetReadyForSummaries()
 ```
 
-**Motivation**  
+**Motivation**
 Signaling methods with side effects and those without.
 
 ## 45. Parameterize Method
 
-Several methods do similar things but with different values contained in the method body.  
+Several methods do similar things but with different values contained in the method body.
 _Create one method that uses a parameter for the different values_
 
 ```java
@@ -1861,12 +1905,12 @@ to
 	raise(percentage)
 ```
 
-**Motivation**  
+**Motivation**
 Removes duplicate code and increases flexibility.
 
 ## 46. Replace Parameter with Explicit Methods
 
-You have a method that runs different code depending on the values of an enumerated parameter.  
+You have a method that runs different code depending on the values of an enumerated parameter.
 _Create a separate method for each value of the parameter_
 
 ```java
@@ -1904,7 +1948,7 @@ to
 
 ## 47. Preserve Whole Object
 
-You are getting several values from an object and passing these values as parameters in a method call.  
+You are getting several values from an object and passing these values as parameters in a method call.
 _Send the whole object instead_
 
 ```java
@@ -1930,7 +1974,7 @@ to
 
 ## 48. Replace Parameter with Method
 
-An object invokes a method, then passes the result as a parameter for a method. The receiver can also invoke this method.  
+An object invokes a method, then passes the result as a parameter for a method. The receiver can also invoke this method.
 _Remove the parameter and let the receiver invoke the method_
 
 ```java
@@ -1956,7 +2000,7 @@ to
 
 ## 49. Introduce Parameter Object
 
-You have a group of parameters that naturally go together.  
+You have a group of parameters that naturally go together.
 _Replace them with an object_
 
 ```java
@@ -1986,7 +2030,7 @@ to
 
 ## 50. Remove Setting Method
 
-A field should be set at creation time and never altered.  
+A field should be set at creation time and never altered.
 _Remove any setting method for that field_
 
 ```java
@@ -2005,12 +2049,12 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 Make your intention clear: If you don't want that field to change once is created, then don't provide a setting method (and make the field final).
 
 ## 51. Hide Method
 
-A method is not used by any other class.  
+A method is not used by any other class.
 _Make the method private_
 
 ```java
@@ -2029,12 +2073,12 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 Whenever a method is not needed outside its class it should be hidden
 
 ## 52. Replace Constructor with Factory Method
 
-You want to do more than simple construction when you create an object.  
+You want to do more than simple construction when you create an object.
 _Replace the constructor with a factory method_
 
 ```java
@@ -2053,12 +2097,12 @@ to
 	}
 ```
 
-**Motivation**  
+**Motivation**
 Create an object depending on its subclasses (types). Constructors can only return an instance of the object that is asked for so a Factory method is needed.
 
 ## 53. Encapsulate Downcast
 
-A method returns an object that needs to be downcasted by its callers.  
+A method returns an object that needs to be downcasted by its callers.
 _Move the downcast to within the method_
 
 ```java
@@ -2077,8 +2121,8 @@ to
 	}
 ```
 
-**Motivation**  
-Provide as result type, the most specific type of the method signature.  
+**Motivation**
+Provide as result type, the most specific type of the method signature.
 If the signature is to general, check the uses the clients do of that method and if coherent, provide a more specific one.
 
 ## 54. Replace Error Code with Exception
@@ -2212,7 +2256,7 @@ to
 
 ## 58. Pull Up Constructor Body
 
-You have constructors on subclasses with mostly identical bodies.  
+You have constructors on subclasses with mostly identical bodies.
 _Create a superclass constructor; call this from the subclass methods_
 
 ```java
@@ -2243,7 +2287,7 @@ to
 
 ## 59. Push Down Method
 
-Behavior on a superclass is relevant only for some of its subclasses.  
+Behavior on a superclass is relevant only for some of its subclasses.
 _Move it to those subclasses._
 
 ```java
@@ -2270,7 +2314,7 @@ When a method makes only sense in the subclass.
 
 ## 60. Push Down Field
 
-A field is used only by some subclasses.  
+A field is used only by some subclasses.
 _Move the field to those subclasses_
 
 ```java
@@ -2297,7 +2341,7 @@ When a field makes only sense in the subclass.
 
 ## 61. Extract Subclass
 
-A class has features that are used only in some instances.  
+A class has features that are used only in some instances.
 _Create a subclass for that subset of features_
 
 ```java
@@ -2328,7 +2372,7 @@ When a class has behavior used for some instances of the class and not for other
 
 ## 62. Extract Superclass
 
-You have two classes with similar features.  
+You have two classes with similar features.
 _Create a superclass and move the common features to the superclass_
 
 ```java
@@ -2407,7 +2451,7 @@ to
 
 ## 64. Collapse Hierarchy
 
-A superclass and subclass are not very different.  
+A superclass and subclass are not very different.
 _Merge them together_
 
 ```java
@@ -2469,7 +2513,7 @@ to
 
 ## 66. Replace Inheritance with Delegation
 
-A subclass uses only part of a superclasses interface or does not want to inherit data.  
+A subclass uses only part of a superclasses interface or does not want to inherit data.
 _Create a field for the superclass, adjust methods to delegate to the superclass, and remove the subclassing_
 
 ```java
@@ -2508,7 +2552,7 @@ Mechanics
 
 ## 67. Replace Delegation with Inheritance
 
-You're using delegation and are often writing many simple delegations for the entire interface.  
+You're using delegation and are often writing many simple delegations for the entire interface.
 _Make the delegating class a subclass of the delegate_
 
 ```java
@@ -2579,7 +2623,7 @@ to
 - Tangled inheritance leads to code duplication.
 - If every class at a certain level in the hierarchy has subclasses that begin with the same adjective, you probably are doing two jobs with one hierarchy.
 
-**Mechanics Note**  
+**Mechanics Note**
 Identify the different jobs being done by the hierarchy. Create a two-dimensional(or x-dimensional) grid and label the axes with the different jobs.
 
 | Deal         | Active Deal | Passive Deal |
